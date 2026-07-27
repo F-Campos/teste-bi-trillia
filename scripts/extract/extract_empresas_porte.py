@@ -28,7 +28,7 @@ def extrair() -> None:
     if not CAMINHO_ORIGEM.exists():
         raise FileNotFoundError(f"Arquivo de origem não encontrado: {CAMINHO_ORIGEM}")
 
-    df = pd.read_csv(CAMINHO_ORIGEM, sep=";", encoding="utf-8")
+    df = pd.read_csv(CAMINHO_ORIGEM, sep=";", encoding="utf-8", dtype={"cnpj": str})
 
     if df.empty:
         raise ValueError(f"O arquivo '{NOME_BASE}.csv' foi lido, mas está vazio.")
