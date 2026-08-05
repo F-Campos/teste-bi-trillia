@@ -32,8 +32,14 @@ def transformar() -> None:
 
     linhas_antes = len(df)
 
-    df["saude_tributaria"] = df["saude_tributaria"].astype(str).str.strip()
-    df["saude_tributaria"] = df["saude_tributaria"].replace("nan", "NÃO INFORMADO")
+    df["saude_tributaria"] = (
+        df["saude_tributaria"]
+        .fillna("NÃO INFORMADO")
+        .astype(str)
+        .str.strip()
+    )
+    df.loc[df["saude_tributaria"].isin(["", "nan"]), "saude_tributaria"] = "NÃO INFORMADO"
+
 
     if len(df) != linhas_antes:
         raise ValueError(
