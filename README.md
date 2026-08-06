@@ -49,7 +49,9 @@ Diante disso, optei por **não fundir** essas tabelas em uma única dimensão la
 ## Qualidade de dados — achados relevantes
 
 - **Correção de bug em `tp_merc`/CNPJ**: a leitura inicial de colunas de CNPJ sem especificar tipo de dado (`dtype=str`) causava perda de zeros à esquerda pelo pandas (conversão automática para inteiro). Identificado e corrigido na etapa de Extract, afetando ~13% dos registros em 5 das 7 bases.
-- **Inconsistência de texto**: o campo `setor_economico` continha o mesmo setor grafado de duas formas (vírgula vs. ponto), corrigido na etapa de Transform.
+- **Inconsistência de digitação em `setor_economico`**: identificado o valor
+  "PETRÓLEO. GÁS E BIOCOMBUSTÍVEIS" (erro de digitação, com ponto) coexistindo com a forma correta "PETRÓLEO, GÁS E BIOCOMBUSTÍVEIS" (com vírgula) na base `empresas_bolsa`. Corrigido
+  na etapa de Transform via mapa de correção (`CORRECOES_SETOR`).
 - **Baixa correspondência de CNPJ entre bases satélite do Bloco 2** (detalhado acima), que direcionou a decisão de mantê-las independentes.
 
 ## Dashboard
